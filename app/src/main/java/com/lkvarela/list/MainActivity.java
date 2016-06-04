@@ -8,13 +8,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView mListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+mListView= (ListView)findViewById(R.id.avisos_list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.aviso_row,R.id.row_list,
+                new String[]{"first record", "second", "tercero"}
+        );
+        mListView.setAdapter(arrayAdapter);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
