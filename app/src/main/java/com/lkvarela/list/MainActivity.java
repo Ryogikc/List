@@ -1,5 +1,6 @@
 package com.lkvarela.list;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,22 +13,55 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
+
+
 public class MainActivity extends AppCompatActivity {
 
     private ListView mListView;
-
+    private AvisosDBAdapter mDbAdapter;
+    private AvisosSimpleCursorAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mListView = (ListView) findViewById(R.id.avisos_list);
+        findViewById(R.id.avisos_list);
+        mListView.setDivider(null);
+        mDbAdapter = new AvisosDBAdapter(this);
+        mDbAdapter.open();
 
-mListView= (ListView)findViewById(R.id.avisos_list);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.aviso_row,R.id.row_list,
-                new String[]{"first record", "second", "tercero"}
-        );
-        mListView.setAdapter(arrayAdapter);
+        Cursor cursor = mDbAdapter.fetchAllReminders();
+
+        //desde las columnas definidas en la base de datos
+        String[] from = new String[]{
+                AvisosDBAdapter.COL_CONTENT
+        };
+
+        //a la id de views en el layout
+        int[] to = new int[]{
+                R.id.row_list
+        };
+
+        mCursorAdapter = new AvisosSimpleCursorAdapter(
+                //context
+                MainActivity.this,
+                //el layout de la fila
+                R.layout.aviso_row,
+                //cursor
+                cursor,
+                //desde columnas definidas en la base de datos
+                from,
+                //a las ids de views en el layout
+                to,
+                //flag - no usado
+                0);
+
+        //el cursorAdapter (controller) está ahora actualizando la listView (view)
+        //con datos desde la base de datos (modelo)
+        mListView.setAdapter(mCursorAdapter);
+
 
 
 
