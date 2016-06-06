@@ -3,8 +3,17 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.lkvarela.list.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/aviso"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/aviso"
         app:showAsAction="never"/>
+
+
+    <item
+        android:id="@+id/salir"
+        android:orderInCategory="200"
+        android:title="@string/salir"
+        app:showAsAction="never"/>
+
+
 </menu>

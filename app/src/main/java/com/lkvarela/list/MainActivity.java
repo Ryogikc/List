@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,13 +56,27 @@ mListView= (ListView)findViewById(R.id.avisos_list);
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+
+            case R.id.aviso:
+                Log.d(getLocalClassName(), getString(R.string.crear_aviso));
+                return true;
+
+            case R.id.salir:
+                finish();
+                return true;
+
+            default:
+                return false;
+
+
+
+
+
         }
 
-        return super.onOptionsItemSelected(item);
+
+
     }
 }
